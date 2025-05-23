@@ -29,3 +29,9 @@ to avoid SSL Issues
 
 The device should now show up on `lsusb` as something like this:<br>
 _Bus 001 Device 002: ID 10c4:ea60 Silicon Labs CP210x UART Bridge_
+
+## NVim
+Generate compilecommands for LSP by calling
+```
+idf.py reconfigure
+```
