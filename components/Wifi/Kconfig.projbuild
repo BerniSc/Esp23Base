@@ -1,0 +1,72 @@
+menu "Wifi Configuration"
+
+    ###################################################
+    #
+    # Station Mode Configuration
+    #
+    ###################################################
+    ###################################################
+    config WIFI_STATION_MODE
+        bool "Enable Station Mode"
+        default y
+        help
+            Enable this option to configure the device to connect to an existing WiFi network as a client.
+
+    # Allow configuration of SSID, Password and Max-Retries via Menuconfig
+    config WIFI_SSID
+        string "Router Name"
+        default "MyStation"
+        depends on WIFI_STATION_MODE
+        help
+            SSID (network name) for the example to connect to.
+
+    config WIFI_PASSWORD
+        string "Router Password"
+        default "station_password"
+        depends on WIFI_STATION_MODE
+        help
+            WiFi password (WPA or WPA2) for the example to use.
+
+    config WIFI_MAX_RETRY
+        int "Maximum retry"
+        default 5
+        depends on WIFI_STATION_MODE
+        help
+            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP really is inexistent.
+
+    ###################################################
+    #
+    # Accesspoint Mode Configuration
+    #
+    ###################################################
+    ###################################################
+    config WIFI_ACCESS_POINT
+        bool "Enable Access Point Mode"
+        default n
+        help
+            Enable this option to configure the device as a WiFi Access Point.
+
+    # Allow configuration of SSID, Password and Accesspoint Channel via Menuconfig
+    config WIFI_AP_SSID
+        string "Access Point SSID"
+        default "MyAccessPoint"
+        depends on WIFI_ACCESS_POINT
+        help
+            SSID (network name) for the Access Point.
+
+    config WIFI_AP_PASSWORD
+        string "Access Point Password"
+        default "ap_password"
+        depends on WIFI_ACCESS_POINT
+        help
+            Password for the Access Point (WPA or WPA2).
+
+    config WIFI_AP_CHANNEL
+        int "Access Point Channel"
+        default 6
+        depends on WIFI_ACCESS_POINT
+        range 1 11
+        help
+            WiFi channel for the Access Point. Valid range is 1-11.
+
+endmenu
