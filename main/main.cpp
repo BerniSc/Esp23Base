@@ -20,7 +20,7 @@ extern "C" void app_main(void) {
     for(int i = 10; i >= 10; i--)
         vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-    auto wifiMangager = WifiManager(WifiManager::Mode::Station);
+    auto wifiMangager = WifiManager(WifiManager::Mode::AccessPoint);
     wifiMangager.start();
 
     for(int i = 100; i >= 10; i--)

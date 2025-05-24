@@ -12,9 +12,9 @@
 #endif    
 
 #ifdef CONFIG_WIFI_ACCESS_POINT
-#define WIFI_AP_SSID "MyAccessPoint"
-#define WIFI_AP_PASSWORD "ap_password"
-#define WIFI_AP_CHANNEL 6
+#define WIFI_AP_SSID CONFIG_WIFI_AP_SSID
+#define WIFI_AP_PASSWORD CONFIG_WIFI_AP_PASSWORD
+#define WIFI_AP_CHANNEL CONFIG_WIFI_AP_CHANNEL
 #else 
 #define WIFI_AP_SSID ""
 #define WIFI_AP_PASSWORD ""
