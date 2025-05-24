@@ -69,4 +69,13 @@ menu "Wifi Configuration"
         help
             WiFi channel for the Access Point. Valid range is 1-11.
 
+    config WIFI_AP_MAX_CON
+        int "Maximum Connections"
+        default 4
+        depends on WIFI_ACCESS_POINT
+        range 1 12
+        help
+
+            Maximum number of connections the Access point should allow. Valid Range is 1-12.
+
 endmenu

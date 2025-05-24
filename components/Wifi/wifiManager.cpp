@@ -15,10 +15,12 @@
 #define WIFI_AP_SSID CONFIG_WIFI_AP_SSID
 #define WIFI_AP_PASSWORD CONFIG_WIFI_AP_PASSWORD
 #define WIFI_AP_CHANNEL CONFIG_WIFI_AP_CHANNEL
+#define WIFI_APP_MAX_CON CONFIG_WIFI_AP_MAX_CON
 #else 
 #define WIFI_AP_SSID ""
 #define WIFI_AP_PASSWORD ""
 #define WIFI_AP_CHANNEL 0
+#define WIFI_APP_MAX_CON 0
 #endif    
 
 #define TAG "WifiManager"
@@ -67,7 +69,8 @@ void WifiManager::setAP() {
     AccessPointConfig config = {
         WIFI_AP_SSID,
         WIFI_AP_PASSWORD,
-        WIFI_AP_CHANNEL
+        WIFI_AP_CHANNEL,
+        WIFI_APP_MAX_CON
     };
     ESP_LOGD(TAG, "setting up %s with %s", WIFI_AP_SSID, WIFI_AP_PASSWORD);
     apMode->configure(&config);
