@@ -1,4 +1,4 @@
-#include "../include/stationStrategy.hpp"
+#include "../privateInclude/stationStrategy.hpp"
 
 #include <cstring>
 

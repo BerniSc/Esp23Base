@@ -1,4 +1,4 @@
-#include "../include/apStrategy.hpp"
+#include "../privateInclude/apStrategy.hpp"
 
 #include <cstring>
 

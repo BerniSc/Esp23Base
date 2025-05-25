@@ -25,7 +25,7 @@
 
 #define TAG "WifiManager"
 
-WifiManager::WifiManager(const Mode& initialMode) : stationAvailable(false), apAvailable(false) {
+WifiManager::WifiManager(const Mode& initialMode) : started(false), stationAvailable(false), apAvailable(false) {
 #ifdef CONFIG_WIFI_STATION_MODE
     stationAvailable = true;
 #endif
@@ -51,7 +51,6 @@ WifiManager::WifiManager(const Mode& initialMode) : stationAvailable(false), apA
     }
 }
 
-
 void WifiManager::setStation() {
     auto stationMode = std::make_unique<WifiStation>();
     StationConfig config = {
@@ -62,6 +61,7 @@ void WifiManager::setStation() {
     ESP_LOGD(TAG, "connecting %s with %s", WIFI_SSID, WIFI_PASSWORD);
     stationMode->configure(&config);
     mode = std::move(stationMode);
+    currentMode = Mode::Station;
 }
 
 void WifiManager::setAP() {
@@ -75,20 +75,25 @@ void WifiManager::setAP() {
     ESP_LOGD(TAG, "setting up %s with %s", WIFI_AP_SSID, WIFI_AP_PASSWORD);
     apMode->configure(&config);
     mode = std::move(apMode);
+    currentMode = Mode::AccessPoint;
 }
 
 void WifiManager::start() {
-    if(mode)
+    if(mode) {
         mode->start();
-    else
+        started = true;
+    } else {
         ESP_LOGE(TAG, "No WiFi mode is set. Please set a mode before starting.");
+    }
 }
 
 void WifiManager::stop() {
-    if(mode)
+    if(mode) {
         mode->stop();
-    else
+        started = false;
+    } else {
         ESP_LOGE(TAG, "No WiFi mode is set. Nothing to stop.");
+    }
 }
 
 
@@ -98,15 +103,17 @@ void WifiManager::switchToStation() {
         return;
     }
 
-    if(mode) {
+    if(mode && started) {
         ESP_LOGI(TAG, "Stopping current mode...");
         mode->stop();
+        started = false;
     }
 
     setStation();
     if(mode) {
         ESP_LOGI(TAG, "Starting Station mode...");
         mode->start();
+        started = true;
     }
 }
 
@@ -116,14 +123,24 @@ void WifiManager::switchToAP() {
         return;
     }
 
-    if(mode) {
+    if(mode && started) {
         ESP_LOGI(TAG, "Stopping current mode...");
         mode->stop();
+        started = false;
     }
 
     setAP();
     if(mode) {
         ESP_LOGI(TAG, "Starting Access Point mode...");
         mode->start();
+        started = true;
     }
+}
+
+WifiManager::Mode WifiManager::getCurrentMode() const {
+    return this->currentMode;
+}
+
+bool WifiManager::isStarted() const {
+    return this->started;
 }

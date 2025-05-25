@@ -4,9 +4,9 @@
 #include <memory>
 #include <iostream>
 
-#include "abstract/wifiStrategy.hpp"
-#include "stationStrategy.hpp"
-#include "apStrategy.hpp"
+#include "../privateInclude/abstract/wifiStrategy.hpp"
+#include "../privateInclude/stationStrategy.hpp"
+#include "../privateInclude/apStrategy.hpp"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
@@ -25,6 +25,10 @@ class WifiManager {
         };
     private:
         std::unique_ptr<WifiStrategy> mode;
+
+        Mode currentMode;
+        bool started;
+
         bool stationAvailable;
         bool apAvailable;
 
@@ -39,6 +43,9 @@ class WifiManager {
 
         void switchToStation();
         void switchToAP();
+
+        Mode getCurrentMode() const;
+        bool isStarted() const;
 };
 
 #endif // !WIFI_MANAGER_HPP
