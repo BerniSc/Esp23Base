@@ -1,0 +1,9 @@
+#ifndef GPIO_TYPES_HPP
+#define GPIO_TYPES_HPP
+
+#define ESP_INTR_FLAG_DEFAULT 0
+
+enum class GPIOMode { INPUT, OUTPUT, INPUT_PULLUP, INPUT_PULLDOWN, ANALOG };
+enum class GPIOInterruptType { RISING, FALLING, CHANGE };
+
+#endif // !GPIO_TYPES_HPP
